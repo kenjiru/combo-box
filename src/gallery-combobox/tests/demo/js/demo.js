@@ -1,4 +1,4 @@
-YUI().use('combo-box', function(Y){
+YUI().use('gallery-combobox', function(Y){
     var comboBox = new Y.ComboBox(),
         items = [];
 
