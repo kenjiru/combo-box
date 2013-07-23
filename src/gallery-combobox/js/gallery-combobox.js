@@ -30,7 +30,8 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
     },
 
     _onOptionClick : function(ev) {
-        var option = ev.target;
+        var option = ev.target,
+            value = option.getAttribute('value');
 
         if (this._selectedItemWidget) {
             this._selectedItemWidget.removeClass('selected');
@@ -43,8 +44,10 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
 
         this._hideContainer();
 
+        this._set('selectedValue', value);
+
         this.fire('optionChanged', {
-            value : option.getAttribute('value')
+            value : value
         });
     },
 
