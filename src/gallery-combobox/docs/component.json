@@ -1,0 +1,11 @@
+{
+    "name"       : "gallery-combobox",
+    "displayName": "Gallery: gallery-combobox",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "kenjiru" ],
+    "use"        : [ "gallery-combobox" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

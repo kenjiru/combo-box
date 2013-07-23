@@ -1,0 +1,10 @@
+{
+    "name": "gallery-combobox",
+    "builds": {
+        "gallery-combobox": {
+            "jsfiles": [
+                "js/gallery-combobox.js"
+            ]
+        }
+    }
+}

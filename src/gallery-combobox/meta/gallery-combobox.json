@@ -1,0 +1,7 @@
+{
+    "gallery-combobox": {
+        "requires": [
+            "yui-base"
+        ]
+    }
+}
