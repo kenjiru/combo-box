@@ -4,7 +4,11 @@
         "gallery-combobox": {
             "jsfiles": [
                 "js/gallery-combobox.js"
-            ]
+            ],
+            "config" : {
+                "use" : [ "base", "widget", "node", "event-delegate", "event-valuechange", "event-outside", "event-custom" ],
+                "skinnable" : true
+            }
         }
     }
 }
