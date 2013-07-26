@@ -18,10 +18,12 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
     },
 
     renderUI : function() {
-        var items = this.get('items');
+        var items = this.get('items'),
+            selectedValue = this.get('selectedValue');
 
         this._createUi();
         this._addAllItems(items);
+        this._setSelectedValue(selectedValue);
     },
 
     bindUI : function() {
@@ -35,22 +37,34 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
         var option = ev.target,
             value = option.getAttribute('value');
 
-        if (this._selectedItemWidget) {
-            this._selectedItemWidget.removeClass('selected');
-        }
-        this._selectedItemWidget = option;
-
-        option.addClass('selected');
-
-        this._valueInput.set('value', option.get('text'));
-
         this._hideContainer();
 
-        this._set('selectedValue', value);
+        this.set('selectedValue', value);
 
         this.fire('optionChanged', {
             value : value
         });
+    },
+
+    _setSelectedValue : function(value) {
+        var itemWidget = this._findItemWidget(value),
+            itemText;
+
+        if (itemWidget) {
+            this._selectItemWidget(itemWidget);
+
+            itemText = itemWidget.get('text');
+            this._valueInput.set('value', itemText);
+        }
+    },
+
+    _selectItemWidget : function(itemWidget) {
+        if (this._selectedItemWidget) {
+            this._selectedItemWidget.removeClass('selected');
+        }
+        this._selectedItemWidget = itemWidget;
+
+        itemWidget.addClass('selected');
     },
 
     _createUi : function() {
@@ -134,15 +148,25 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
     },
 
     _removeItemWidget : function(itemValue) {
-        var options = this.get('contentBox').all('.options .option');
+        var itemWidget = this._findItemWidget(itemValue);
+
+        if (itemWidget) {
+            itemWidget.remove(true);
+        }
+    },
+
+    _findItemWidget : function(itemValue) {
+        var options = this.get('contentBox').all('.options .option'),
+            foundOption = null;
 
         options.some(function(option){
             if (option.getAttribute('value') == itemValue) {
-                option.remove(true);
-
+                foundOption = option;
                 return true;
             }
         });
+
+        return foundOption;
     },
 
     _addItem : function(item) {
@@ -166,11 +190,19 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
         items : {
             writeOnce : true,
             setter : function(value) {
-                this._addAllItems(value);
+                if (this.get('rendered')) {
+                    this._addAllItems(value);
+                }
+
+                return value;
             }
         },
         selectedValue : {
-            writeOnce : true
+            setter : function(value) {
+                this._setSelectedValue(value);
+
+                return value;
+            }
         }
     }
 });
