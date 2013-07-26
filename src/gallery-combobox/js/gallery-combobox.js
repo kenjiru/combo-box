@@ -18,8 +18,10 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
     },
 
     renderUI : function() {
+        var items = this.get('items');
+
         this._createUi();
-        this._addAllItems();
+        this._addAllItems(items);
     },
 
     bindUI : function() {
@@ -102,8 +104,10 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
         })
     },
 
-    _addAllItems : function() {
-        var items = this.get('items');
+    _addAllItems : function(items) {
+        if (!items) {
+            return;
+        }
 
         for (var i=0; i<items.length; i++) {
             this._addItemWidget(items[i]);
@@ -160,7 +164,10 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
 }, {
     ATTRS : {
         items : {
-            writeOnce : true
+            writeOnce : true,
+            setter : function(value) {
+                this._addAllItems(value);
+            }
         },
         selectedValue : {
             writeOnce : true
