@@ -104,6 +104,10 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
         this._positionContainer();
         this._optionsContainer.show();
 
+        if (this._selectedItemWidget) {
+            this._selectedItemWidget.scrollIntoView();
+        }
+
         this._clickOutsideSub = this._optionsContainer.on('clickoutside', this._hideContainer, this);
     },
 
