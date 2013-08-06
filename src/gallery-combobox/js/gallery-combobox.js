@@ -47,9 +47,18 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
     },
 
     _setSelectedValue : function(value) {
-        var itemWidget = this._findItemWidget(value),
-            itemText;
+        var itemWidget,
+            itemText,
+            defaultText;
 
+        if (value == null) {
+            defaultText = this.get('defaultText');
+            this._valueInput.set('value', defaultText);
+
+            return;
+        }
+
+        itemWidget = this._findItemWidget(value);
         if (itemWidget) {
             this._selectItemWidget(itemWidget);
 
@@ -208,6 +217,9 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
 
                 return value;
             }
+        },
+        defaultText : {
+            value : ''
         }
     }
 });
