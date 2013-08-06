@@ -87,7 +87,6 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
             this._hideContainer();
         }
 
-        ev.preventDefault();
         ev.stopPropagation();
     },
 
@@ -104,6 +103,12 @@ Y.ComboBox = Y.Base.create('comboBox', Y.Widget, [], {
 
         if (this._clickOutsideSub) {
             this._clickOutsideSub.detach();
+        }
+    },
+
+    hideOptionsContainer : function() {
+        if (!this._optionsContainer._isHidden()) {
+            this._hideContainer();
         }
     },
 
